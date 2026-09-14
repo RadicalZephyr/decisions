@@ -32,7 +32,7 @@ and is run from the repository root with one command:
 {{the command that runs the experiment named 0001-some-decision}}
 ```
 
-The record number is the only thing that varies from one experiment to the
+The record's name is the only thing that varies from one experiment to the
 next. Print results in whatever shape the ADR needs to quote them, and link the
 entry point from the section that relies on the numbers. Fixtures shared between
 experiments -- a data builder two of them both need, a timing harness -- get a

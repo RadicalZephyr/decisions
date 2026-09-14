@@ -84,8 +84,8 @@ Which of two homes depends on what the experiment needs:
   *fail* to compile or type-check cannot be an experiment entry point, because
   a sub-project that does not build breaks the project's build. If the README
   names no playground, everything that builds goes in `experiments/`, and a
-  must-fail case is recorded in the ADR as source, output and version stamp
-  with no link.
+  must-fail case is recorded in the ADR as the four parts below with the
+  provenance line cut to `TOOL VERSION (released DATE)` and no link.
 
 **Develop the experiment locally and mint the link last.** Run it with the
 local toolchain against a file in your scratch directory until it produces the

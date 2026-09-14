@@ -22,12 +22,12 @@ past.*
 ## Context
 
 This repository had nowhere to put reasoning. The code carries some of it in
-comments, and the changelog records what changed without saying why. Neither
+comments, and a changelog records what changed without saying why. Neither
 survives the question "we already settled this a year ago -- what did the first
 answer cost?"
 
-Two things constrain the answer. The first is that most of the decisions a
-project makes are about things it intends to change -- its internal
+Two things constrain where it can go. The first is that most of the decisions
+a project makes are about things it intends to change -- its internal
 implementation, or how a requirement it does not control should be spelled in
 this language. Reasoning about a structure that is about to be replaced turns
 out to constrain how the reasoning can be recorded.
@@ -37,7 +37,7 @@ with nowhere to live end up in the test suite, where they fail for reasons
 unrelated to the project ever after. That is the concrete failure this record
 exists to prevent.
 
-{{What forced the question in this project, if anything beyond the above.}}
+{{What forced the question in this project, if anything.}}
 
 ## Decision
 
@@ -45,11 +45,11 @@ Decisions live in `docs/decisions/records/`, one record per file, and they are
 **living documents**: a record is edited to stay current rather than frozen at
 the moment it was written.
 
-The rules themselves live in [`README.md`](../README.md) beside the records,
-and in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) for contributors. This
-record holds the argument, what we turned down, and what we are still unsure
-about. Keeping the two apart is deliberate: a record that restates its own
-rulebook goes stale the first time the rulebook changes.
+The rules themselves live in [`README.md`](../README.md) one level up, beside
+`records/`, and in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) for
+contributors. This record holds the argument, what we turned down, and what we
+are still unsure about. Keeping the two apart is deliberate: a record that
+restates its own rulebook goes stale the first time the rulebook changes.
 
 ## Why living documents rather than immutable records
 
@@ -90,7 +90,7 @@ leaving the file readable as current state.
 
 The same discipline applies to any claim that will not age well: benchmark
 numbers, toolchain behaviour, quoted diagnostics. The version stamp on quoted
-playground output, in *Evidence* below, is this rule's first and strictest
+toolchain output, in *Evidence* below, is this rule's first and strictest
 instance.
 
 ## The status field
@@ -284,8 +284,7 @@ thing.
 
 We are deliberately not settling this in advance. A file of undigested
 observations with no decision attached would be the case in miniature: it may
-graduate
-into a record, or into explanation, or legitimately stay where it is. That last
-option is the disanalogy with `experiments/` -- an experiment has no valid
-resting state, an observation does. We will have a better feel for the boundary
-with a real case in front of us.
+graduate into a record, or into explanation, or legitimately stay where it is.
+That last option is the disanalogy with `experiments/` -- an experiment has no
+valid resting state, an observation does. We will have a better feel for the
+boundary with a real case in front of us.

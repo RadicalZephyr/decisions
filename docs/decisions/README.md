@@ -58,8 +58,9 @@ made under specific information.
 
 A record whose last row is still `Drafted` is exempt: while its pull request is
 open it is being written, not revised, so edit it freely without dating
-anything. The dated-addition rule protects a decision that has already been made from being
-quietly reworded in hindsight, and a draft has not made one yet.
+anything. The dated-addition rule protects a decision that has already been
+made from being quietly reworded in hindsight, and a draft has not made one
+yet.
 
 [`records/0001-recording-important-decisions.md`](records/0001-recording-important-decisions.md)
 argues for all of this.
@@ -162,7 +163,8 @@ The split enforces itself in one direction: a playground cannot depend on this
 project, so anything that fits in one is necessarily a minimal reproduction. It
 is also the only route open to a build-time experiment -- a case that must
 *fail* to compile or type-check cannot live in the sub-project, because a
-sub-project that does not build breaks the project's build.
+sub-project that does not build breaks the project's build. A project with no
+playground at all loses that route; the next section says what it does instead.
 
 See [`experiments/README.md`](experiments/README.md) for the sub-project,
 including how an experiment is retired.

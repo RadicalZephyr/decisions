@@ -58,9 +58,9 @@ For a new project, or one with no `docs/decisions/` yet:
    own, or take the files as they are if it has none.
 3. Fill every `{{slot}}` -- `grep -rn '{{' docs CONTRIBUTING.md CLAUDE.md`
    finds them all, and there are few: the playground; how the experiments
-   sub-project joins the build, where its entry points live and what extension
-   they carry, and the command that runs one; and the record's date and
-   context.
+   sub-project joins the build and what it is called, where its entry points
+   live and what extension they carry, and the command that runs one; and the
+   record's date and context.
 4. Set the sub-project up in the project's language. It depends on the project
    by path, is never published, and is covered by the same lint and test checks
    as everything else. Leave it empty; it fills when a record needs it. It has
