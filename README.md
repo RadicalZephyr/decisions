@@ -38,9 +38,10 @@ This file is the one thing here that is not part of the template.
   following the old record would now do the wrong thing.** Diff size measures
   effort and gets this wrong in both directions.
 - **Evidence must be runnable.** Code producing a number a record argues from
-  is committed where a reader can run it: the experiments sub-project when it
-  needs the project, a playground share link with the source and a toolchain
-  version stamp when it needs only the language.
+  is committed where a reader can run it, routed by whether a reader can run it
+  from a share link: a playground link with the source and a toolchain version
+  stamp when the service can run it, the experiments sub-project when it cannot
+  -- this project's code, or a dependency the service does not carry.
 - **Research is evidence, not a test.** A record arguing for different
   internals does not bring tests written against the structure it exists to
   replace.

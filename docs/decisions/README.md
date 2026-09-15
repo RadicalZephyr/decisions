@@ -152,22 +152,43 @@ committed somewhere a reader can run it. A number quoted in an ADR should be
 re-derivable by anyone with a checkout; if the experiment only ever existed in
 a scratch buffer, the ADR is asserting rather than arguing.
 
-Which of the two homes it gets is decided by what it depends on:
+Which of the two homes it gets is decided by one question -- can a reader run it
+from a share link?
 
 | The experiment needs | It lives in |
 | --- | --- |
 | this project's code | the sub-project in [`experiments/`](experiments/), as an entry point named after the record |
-| only the language's toolchain and standard library | a share link on the playground, with the source in the ADR |
+| anything else the playground cannot run -- most often a dependency the service does not carry | the same sub-project, on the same terms |
+| only what the playground can run: the toolchain, its standard library, and any dependency the service supplies | a share link on the playground, with the source in the ADR |
 
-The split enforces itself in one direction: a playground cannot depend on this
-project, so anything that fits in one is necessarily a minimal reproduction. It
-is also the only route open to a build-time experiment -- a case that must
-*fail* to compile or type-check cannot live in the sub-project, because a
-sub-project that does not build breaks the project's build. A project with no
-playground at all loses that route; the next section says what it does instead.
+The middle row is not an exception to the other two, it is the gap between
+them. "Needs the project" and "needs only the standard library" answer different
+questions and never did partition the space, so an experiment wanting one
+third-party package and nothing of ours fell between them with nowhere to go.
+What a playground can run is a property of the named service rather than of the
+language -- some carry a fixed set of popular packages, some carry none -- so it
+is judged per experiment, and "the service does not carry X" is a third-party
+capability, dated like anything else that will not age well. A service that adds
+the package later does not send a live experiment back: it is on its way out
+already.
+
+Reach past the playground because it cannot run the thing, not because adding a
+dependency locally is quicker. The constraint earns its keep -- a playground
+cannot depend on this project, so anything that fits in one is necessarily a
+minimal reproduction -- and a route taken for convenience spends that minimality
+without buying anything. It is also the only route open to a build-time
+experiment: a case that must *fail* to compile or type-check cannot live in the
+sub-project, because a sub-project that does not build breaks the project's
+build. A project with no playground loses that route entirely, and so does any
+one experiment that must fail to build while needing something the playground
+cannot supply; the next section says what both do instead.
+
+A dependency taken on for an experiment is a dependency of this repository. It
+lands in a manifest, goes through the same checks as everything else, and is
+somebody's to audit. It leaves when the experiment does.
 
 See [`experiments/README.md`](experiments/README.md) for the sub-project,
-including how an experiment is retired.
+including how an experiment and anything it brought with it are retired.
 
 ### What the playground has to be
 
@@ -184,7 +205,9 @@ A language with nothing that meets all three closes the second route.
 Everything that builds then goes in `experiments/`, and a case that has to
 *fail* to build is recorded in the ADR as the four parts below with the
 provenance line cut to `TOOL VERSION (released DATE)` -- there is no link to
-re-check, so no checked date.
+re-check, so no checked date. The same holds for a single experiment that has to
+*fail* to build while needing something the playground cannot supply: both
+routes are shut, and the four parts with no link are what is left.
 
 ### The playground is for recording, not for iterating
 

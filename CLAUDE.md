@@ -71,21 +71,32 @@ deleting a claim someone may have acted on, the old claim earns its own record.
 **Any code that produces concrete data used in the argumentation of an ADR must
 be committed somewhere a reader can run it** -- a number quoted in an ADR has to
 be re-derivable from a checkout, or the record is asserting rather than arguing.
-Which of two homes depends on what the experiment needs:
+Which of two homes depends on one question -- can a reader run it from a share
+link?
 
 - **Needs this project's code** → the sub-project at
   [`docs/decisions/experiments/`](docs/decisions/experiments/), as an entry
   point named after the record (`0001-some-decision`), run with the command its
   README names. A dependency added there goes through the same checks as the
   rest of the repository; not publishing it is no reason to skip that.
-- **Needs only the language's toolchain and standard library** → a share link
-  on the playground named in `docs/decisions/README.md`, recorded in the ADR.
-  This is also the only route for a build-time experiment: a case that must
-  *fail* to compile or type-check cannot be an experiment entry point, because
-  a sub-project that does not build breaks the project's build. If the README
+- **Needs anything else the playground cannot run** → the same sub-project, on
+  the same terms. Most often a dependency the service does not carry: what a
+  playground can run is a property of the named service, not of the language, so
+  judge it per experiment. Take this route because the playground cannot run the
+  thing, not because adding a dependency locally is quicker. The dependency
+  leaves when the experiment does -- struck from the manifest in the same commit
+  on the delete exit, deliberately adopted as a permanent dependency of the
+  benchmark or test suite on the promote exit.
+- **Needs only what the playground can run** (the toolchain, its standard
+  library, and any dependency the service supplies) → a share link on the
+  playground named in `docs/decisions/README.md`, recorded in the ADR. This is
+  also the only route for a build-time experiment: a case that must *fail* to
+  compile or type-check cannot be an experiment entry point, because a
+  sub-project that does not build breaks the project's build. If the README
   names no playground, everything that builds goes in `experiments/`, and a
   must-fail case is recorded in the ADR as the four parts below with the
-  provenance line cut to `TOOL VERSION (released DATE)` and no link.
+  provenance line cut to `TOOL VERSION (released DATE)` and no link -- as is a
+  must-fail case needing something the playground cannot supply.
 
 **Develop the experiment locally and mint the link last.** Run it with the
 local toolchain against a file in your scratch directory until it produces the
