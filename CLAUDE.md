@@ -28,8 +28,10 @@ one per file, `NNNN-kebab-case-title.md`. They are **living documents** --
 edited to stay current rather than frozen on acceptance, because git is the log
 and the document is the projection. New information goes in as a **dated
 addition marked as arriving after the decision**, never as a silent revision of
-the original reasoning. Read the directory as the current state of this
-repository's decisions.
+the original reasoning. A record whose last row is still `Drafted` is exempt --
+it has not made a decision yet, so edit it freely without dating anything, and
+the test is the status row rather than whether a pull request is open. Read the
+directory as the current state of this repository's decisions.
 [`0001-recording-important-decisions.md`](docs/decisions/records/0001-recording-important-decisions.md)
 argues for all of it; [`README.md`](docs/decisions/README.md) one level up has
 the rules, and where a conflict or trade-off came up it belongs in the section

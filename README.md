@@ -108,3 +108,22 @@ rather than to the decision. Each is worth adding back when it applies:
 `{{like this}}` marks something the adopting project fills in once. Uppercase
 words inside a format line -- `TOOL VERSION (released DATE)` -- are filled in
 per record, not per project, and stay as they are.
+
+**Here they stay unfilled, and `0001` stays `Drafted`.** This repository is
+where the convention is kept and refined, and it is never adopted here: no
+project context fills the record's `Context` slot, and no pull request merges to
+log its `Accepted` row. An unfilled date in a status log reads like an
+oversight, so it is worth saying outright -- filling these in is the mistake,
+not the fix. This is the only file that says so, because it is the only one not
+copied into an adopting project, where the opposite instruction is the right
+one.
+
+That leaves `0001` permanently `Drafted`, which looks like the failure its
+own
+[Alternatives considered](docs/decisions/records/0001-recording-important-decisions.md#alternatives-considered)
+section rejects: records "permanently marked 'draft' -- a symptom of having no
+criterion for when a draft ends." The resemblance stops at the surface. That
+failure is a draft nobody can end because nothing says when it ends. Here the
+criterion is exact and deliberately never met: acceptance is a merge gate, and
+this repository has nothing to gate. The criterion lives in the adopting
+repository, and so does the transition.

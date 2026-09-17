@@ -12,6 +12,11 @@ decisions, and reach for `git log -p` when you want to know how it got there.
 [`0001-recording-important-decisions.md`](docs/decisions/records/0001-recording-important-decisions.md)
 argues for them.
 
+A record whose last row is still `Drafted` is the exception: it has not made a
+decision yet, so edit it freely without dating anything. The test is the status
+row rather than the pull request -- a record still `Drafted` after its pull
+request closes is still a draft.
+
 A record's status is a dated transition log in a collapsed block at the top of
 the file, and each row is a transition you log deliberately:
 

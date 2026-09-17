@@ -56,11 +56,13 @@ Accretion, not overwriting. Without that discipline a mutable record drifts
 toward what we now think we thought, and stops being evidence of a commitment
 made under specific information.
 
-A record whose last row is still `Drafted` is exempt: while its pull request is
-open it is being written, not revised, so edit it freely without dating
-anything. The dated-addition rule protects a decision that has already been
-made from being quietly reworded in hindsight, and a draft has not made one
-yet.
+A record whose last row is still `Drafted` is exempt: it is being written, not
+revised, so edit it freely without dating anything. The dated-addition rule
+protects a decision that has already been made from being quietly reworded in
+hindsight, and a draft has not made one yet. The test is the status row, not the
+pull request. The two usually coincide, because a record is drafted in the pull
+request that accepts it -- but a record still `Drafted` after its pull request
+closes is still a draft, and still edits freely.
 
 [`records/0001-recording-important-decisions.md`](records/0001-recording-important-decisions.md)
 argues for all of this.
@@ -164,7 +166,11 @@ from a share link?
 The middle row is not an exception to the other two, it is the gap between
 them. "Needs the project" and "needs only the standard library" answer different
 questions and never did partition the space, so an experiment wanting one
-third-party package and nothing of ours fell between them with nowhere to go.
+third-party package and nothing of ours fell between them with nowhere to go --
+and an experiment with nowhere sanctioned to go stays in the scratch file it was
+written in, which is the failure this section exists to prevent. The table is
+meant to be total.
+
 What a playground can run is a property of the named service rather than of the
 language -- some carry a fixed set of popular packages, some carry none -- so it
 is judged per experiment, and "the service does not carry X" is a third-party
