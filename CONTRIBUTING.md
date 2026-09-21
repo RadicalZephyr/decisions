@@ -12,6 +12,11 @@ decisions, and reach for `git log -p` when you want to know how it got there.
 [`0001-recording-important-decisions.md`](docs/decisions/records/0001-recording-important-decisions.md)
 argues for them.
 
+A record whose last row is still `Drafted` is the exception: it has not made a
+decision yet, so edit it freely without dating anything. The test is the status
+row rather than the pull request -- a record still `Drafted` after its pull
+request closes is still a draft.
+
 A record's status is a dated transition log in a collapsed block at the top of
 the file, and each row is a transition you log deliberately:
 
@@ -41,14 +46,21 @@ dated note in the body, beside the reasoning it concerns.
 Code that produces concrete data used in the argumentation of an ADR has to be
 committed somewhere a reader can run it -- a number quoted in an ADR has to be
 re-derivable from a checkout, or the record is asserting rather than arguing.
-An experiment needing this project's code goes in the sub-project at
+The routing question is whether a reader can run it from a share link. An
+experiment the playground can run -- the toolchain, its standard library, and
+any dependency the service supplies -- goes in a share link recorded in the ADR.
+Anything out of that reach goes in the sub-project at
 [`docs/decisions/experiments/`](docs/decisions/experiments/) as an entry point
-named after the record; one needing only the language's toolchain and standard
-library goes in a playground share link recorded in the ADR.
+named after the record: this project's code, and anything else the service
+cannot run, most often a dependency it does not carry. Take the sub-project
+because the playground cannot run the thing, not because adding a dependency
+locally is quicker -- a dependency taken on for an experiment is a dependency of
+this repository, and it leaves when the experiment does.
 [`docs/decisions/README.md`](docs/decisions/README.md#what-the-playground-has-to-be)
 names the playground and says what one has to provide. Where it names none,
 everything that builds goes in the sub-project, and a case that has to *fail*
-to build is recorded in the ADR with no link.
+to build is recorded in the ADR with no link -- as is a case that has to fail to
+build while needing something the playground cannot supply.
 
 The playground is for recording a result, not for finding one. A share link is
 minted on someone else's infrastructure, and it publishes a snippet that nobody

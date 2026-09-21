@@ -164,14 +164,14 @@ implemented state, and `Superseded` is what happens to one that shipped.
 ## Evidence
 
 A number quoted in a record has to be re-derivable by a reader, or the record is
-asserting rather than arguing. Experiments are routed by what they depend on --
-anything needing this project's code goes in the
-[`experiments/`](../experiments/) sub-project beside `records/`, anything
-needing only the language's toolchain and standard library goes in a playground
-share link recorded in the document. [`README.md`](../README.md) has the
-routing table, what a playground has to provide to qualify, and what a project
-with none does instead; [`experiments/README.md`](../experiments/README.md) has
-the retirement rule.
+asserting rather than arguing. Experiments are routed by whether a reader can
+run one from a share link -- anything the playground can run goes in a share
+link recorded in the document, and anything out of its reach goes in the
+[`experiments/`](../experiments/) sub-project beside `records/`: this project's
+code, and anything else the service cannot run, most often a dependency it does
+not carry. [`README.md`](../README.md) has the routing table, what a playground
+has to provide to qualify, and what a project with none does instead;
+[`experiments/README.md`](../experiments/README.md) has the retirement rule.
 
 Two things about that arrangement are decisions rather than mechanics.
 

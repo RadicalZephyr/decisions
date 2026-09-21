@@ -14,8 +14,10 @@ This directory is a sub-project of the main build. It depends on the project by
 path rather than on a published version, is never published itself, and is
 covered by the same checks -- lint, type check, tests -- as anything else in the
 repository, because an experiment is still code someone runs, and not publishing
-it is no reason to skip that. How it joins the build, and what it is called, the
-project says here:
+it is no reason to skip that. An experiment routed here because the playground
+could not supply a dependency brings that dependency with it, into this
+sub-project and so into the repository; [Retirement](#retirement) says when it
+leaves. How it joins the build, and what it is called, the project says here:
 
 > **Sub-project:** {{how it joins the build -- a workspace member, a package in
 > the monorepo, a directory with its own manifest -- and what it is called}}
@@ -45,13 +47,14 @@ Research produces *evidence*, not tests. It is not asserting that the project
 is correct, and it is not expected to keep passing -- it answers a question
 that was open at the time an ADR was written.
 
-An experiment that needs nothing from this project does not belong here either.
-If it depends only on the language's toolchain and standard library -- a probe
-into type inference, a diagnostic worth quoting -- it goes in a playground share
-link recorded in the ADR instead, which is also the only route available to a
-case that has to *fail* to build. That holds while
-[`../README.md`](../README.md) names a playground; where it names none, a
-toolchain-only experiment that builds lives here after all, and a case that has
+An experiment the playground can run does not belong here either. If everything
+it needs is within the service's reach -- the toolchain, its standard library,
+and any dependency the service supplies -- it goes in a share link recorded in
+the ADR instead, which is also the only route available to a case that has to
+*fail* to build. What is out of that reach comes back here: this project's code,
+and anything else the service cannot run, most often a dependency it does not
+carry. That holds while [`../README.md`](../README.md) names a playground; where
+it names none, everything that builds lives here after all, and a case that has
 to *fail* to build is recorded in the ADR with no link. The same file has the
 routing rule, what the playground has to provide, and the version stamp such a
 record has to carry.
@@ -74,8 +77,19 @@ if the decision was withdrawn instead of built -- through one of two exits:
   moves to the test suite. A project with no benchmark suite starts one the
   first time this happens; the experiment does not stay here as the substitute.
 
+An experiment that brought a dependency with it takes that dependency out
+through whichever exit it leaves by. **Deleted** means the manifest entry goes
+in the same commit -- otherwise this sub-project trends toward empty while its
+dependency list quietly does not, which is accumulation in the one place nobody
+thinks to look. **Promoted** means the dependency is promoted too, from
+temporary research scaffolding to a permanent dependency of the benchmark or
+test suite, and that is a decision somebody makes rather than a side effect of
+moving a file. A dependency nobody is willing to keep is an argument against the
+promotion, not a footnote to it.
+
 What an experiment never does is linger. This sub-project is a **staging area,
 not an archive**: everything in it has a scheduled exit, and a healthy one
 trends toward empty. Accumulation is the signal to look for something
-miscategorised -- a benchmark that was never promoted, or an experiment whose
-ADR quietly landed months ago.
+miscategorised -- a benchmark that was never promoted, an experiment whose ADR
+quietly landed months ago, or a dependency that outlived the experiment that
+justified it.
