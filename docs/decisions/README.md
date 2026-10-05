@@ -8,16 +8,18 @@ re-settling it without knowing what the first answer cost.
 Not every change needs one. Write an ADR when the reasoning is the valuable
 part: a trade-off between two workable designs, a constraint that is not
 obvious from the code, a decision whose alternatives will look tempting again
-later.
+later. Write it when something costly to undo is about to depend on it; until
+then the thinking is a note, and the evidence is research.
 
 ## Files
 
 One record per file in [`records/`](records/), `NNNN-kebab-case-title.md`,
 numbered from `0001` in the order they are written. Numbers are never reused. A
 number is an identifier, not a chronology -- it is what supersession references
-point at, which is why it survives a retitle. This directory holds the rules
-and, in [`experiments/`](experiments/), the code that backs a record; the
-records themselves are everything under `records/` and nothing else.
+point at, which is why it survives a retitle. This directory holds the rules;
+what comes before a record, in [`notes/`](notes/) and [`research/`](research/);
+and, in [`experiments/`](experiments/), the code that backs either. The records
+themselves are everything under `records/` and nothing else.
 
 Suggested sections, though the record should follow the argument rather than the
 template:
@@ -143,33 +145,85 @@ Anything in a record that is true *as of* rather than true: benchmark numbers,
 costs, quoted toolchain output, toolchain behaviour, third-party capabilities.
 Say when it was measured, and against what.
 
-This is not a separate convention from the version stamp on quoted toolchain
-output below -- that is this rule's first and strictest instance.
+This is not a separate convention from the version stamps on quoted output
+below -- the playground's and the measured line's are this rule's strictest
+instances.
 
-## Research
+## Before a record: notes and research
 
-Code that produces concrete data used in the argumentation of an ADR --
-benchmarks, memory measurements, probes into toolchain behaviour -- **must** be
-committed somewhere a reader can run it. A number quoted in an ADR should be
-re-derivable by anyone with a checkout; if the experiment only ever existed in
-a scratch buffer, the ADR is asserting rather than arguing.
+A record is usually the end of something. Two kinds of dated document come
+before it, in directories beside `records/`:
 
-Which of the two homes it gets is decided by one question -- can a reader run it
-from a share link?
+- A **note**, in [`notes/`](notes/README.md), records where a thought landed
+  before there is evidence for it -- an idea, what a conversation settled, what
+  it would take to find out.
+- A **research note**, in [`research/`](research/README.md), carries evidence --
+  an experiment's write-up, a brief and the report it produced, a review of the
+  literature, requirements gathered from another project.
+
+A thought moves from one to the next in two steps:
+
+1. **Note to research note**, when someone runs the experiment a note proposes.
+   The entry point in [`experiments/`](experiments/README.md) and the draft
+   research note start together, under one name, so an experiment exists and is
+   named before any decision rests on it.
+2. **To a record**, when something costly to undo is about to depend on it. The
+   record cites the research note and quotes the numbers it needs -- or cites
+   the note, when what it needs is the reasoning rather than a number.
+
+An experiment that already ran -- elsewhere, or before anyone wrote a note --
+enters as a research note directly. It has nothing to graduate from.
+
+A step moves nothing. The next document cites the last, and the last stays as it
+was written. Most notes and research notes never reach a record, and both can
+rest where they are indefinitely, which is the difference from an experiment:
+an experiment has a scheduled exit, and they do not. Neither is authoritative.
+A note or research note says what was thought or found on its date; the record
+says what was decided.
+
+Both are edited freely until they merge to the default branch, and kept as
+written after that. [`notes/README.md`](notes/README.md#kept-as-written) has the
+rule, and why its gate is the merge where a record's is a status row.
+
+## Evidence
+
+Code that produces concrete data used in the argumentation of a record or a
+research note -- benchmarks, memory measurements, probes into toolchain
+behaviour -- **must** be committed somewhere a reader can run it. A number
+quoted in either should be re-derivable by anyone with a checkout; if the
+experiment only ever existed in a scratch buffer, the document is asserting
+rather than arguing.
+
+A record usually argues from a research note rather than from an experiment
+directly. The research note says what ran and pins it; the record quotes the
+number it needs and links the note.
+
+Which home an experiment gets is decided by two questions -- can a reader run it
+from a share link, and does it fit in the sub-project?
 
 | The experiment needs | It lives in |
 | --- | --- |
-| this project's code | the sub-project in [`experiments/`](experiments/), as an entry point named after the record |
+| this project's code | the sub-project in [`experiments/`](experiments/), as an entry point named after the research note or record it serves |
 | anything else the playground cannot run -- most often a dependency the service does not carry | the same sub-project, on the same terms |
-| only what the playground can run: the toolchain, its standard library, and any dependency the service supplies | a share link on the playground, with the source in the ADR |
+| only what the playground can run: the toolchain, its standard library, and any dependency the service supplies | a share link on the playground, with the source in the research note or record |
+| more room than the sub-project has -- a spike that rebuilds the project's core, say | a branch or repository of its own, written up in a research note and pinned at a commit a reader can reach |
 
-The middle row is not an exception to the other two, it is the gap between
+The second row is not an exception to the first and third, it is the gap between
 them. "Needs the project" and "needs only the standard library" answer different
 questions and never did partition the space, so an experiment wanting one
 third-party package and nothing of ours fell between them with nowhere to go --
 and an experiment with nowhere sanctioned to go stays in the scratch file it was
 written in, which is the failure this section exists to prevent. The table is
 meant to be total.
+
+The last row is a matter of scope, and only scope. The sub-project is the
+default because it holds an experiment to the same checks as everything else,
+and an experiment leaves it only when it would take the sub-project over -- a
+spike that rebuilds the project's core is a project of its own -- never because
+somewhere else is quicker. What it gives up is the checkout: a reader can re-run
+it only while the commit it ran at is still there, so the research note pins one
+reachable from a ref nobody deletes. [A measured number carries its
+provenance](#a-measured-number-carries-its-provenance) says how.
 
 What a playground can run is a property of the named service rather than of the
 language -- some carry a fixed set of popular packages, some carry none -- so it
@@ -207,13 +261,13 @@ all three, and this project's is:
 
 > **Playground:** {{name and URL of the service, or "none"}}
 
-A language with nothing that meets all three closes the second route.
+A language with nothing that meets all three closes the playground route.
 Everything that builds then goes in `experiments/`, and a case that has to
-*fail* to build is recorded in the ADR as the four parts below with the
-provenance line cut to `TOOL VERSION (released DATE)` -- there is no link to
-re-check, so no checked date. The same holds for a single experiment that has to
-*fail* to build while needing something the playground cannot supply: both
-routes are shut, and the four parts with no link are what is left.
+*fail* to build is recorded in the research note or record as the four parts
+below with the provenance line cut to `TOOL VERSION (released DATE)` -- there is
+no link to re-check, so no checked date. The same holds for a single experiment
+that has to *fail* to build while needing something the playground cannot
+supply: both routes are shut, and the four parts with no link are what is left.
 
 ### The playground is for recording, not for iterating
 
@@ -221,8 +275,8 @@ A share link is minted on someone else's infrastructure, and it publishes a
 snippet that nobody can collect afterwards. So an experiment is developed
 **locally** -- the toolchain against a file in a scratch directory, as many
 times as it takes -- and goes to the playground only once it produces the
-result the record is going to quote. Nothing is minted to find out what happens.
-A link is minted to publish what already happened.
+result the document is going to quote. Nothing is minted to find out what
+happens. A link is minted to publish what already happened.
 
 Two consequences, stated outright because the natural working rhythm violates
 both:
@@ -230,7 +284,7 @@ both:
 - **No iterative development against playground resources.** An experiment
   that took four attempts should leave one link behind, not four. Reworking
   after minting turns the earlier links into litter that stays live and wrong.
-- **At most one link a minute.** A record needing several is a record that
+- **At most one link a minute.** A document needing several is a document that
   should mint them at that pace.
 
 ### Playground experiments carry four things, not one
@@ -245,7 +299,7 @@ this order, each doing one job:
 1. **A label**, bolded, saying what the experiment demonstrates -- so a reader
    skimming knows whether to stop.
 2. **The source, in a code block** -- the frozen record. Not a backup against
-   the snippet being deleted; it is what the ADR actually argued from.
+   the snippet being deleted; it is what the document actually argued from.
 3. **Its output, in a `text` code block** -- what the quoted claim rests on.
 4. **A provenance line**, as a blockquote directly beneath, carrying the
    toolchain version that produced the output, the date it was last checked,
@@ -282,6 +336,42 @@ The version stamp is **required, and reviewers check for it**. Without it a
 reader who clicks through to different output cannot tell whether the toolchain
 moved or the record was always wrong. With it, that disagreement is itself the
 signal that a superseding record is due.
+
+### A measured number carries its provenance
+
+A number a research note establishes by running something anywhere but a
+playground -- the sub-project, a spike branch, a repository of its own -- has no
+link to click. It is re-derived by checking out a commit and running a command,
+so those are what it carries: a provenance line as a blockquote, and the command
+beneath it, in the section that quotes the number.
+
+````markdown
+> TOOL VERSION (released DATE) - measured DATE - ENTRY at REPO@COMMIT - MACHINE
+
+```shell
+...
+```
+````
+
+`TOOL VERSION (released DATE)` is the playground line's stamp, for the same
+reason: a reader who re-runs the command and gets a different number needs to
+know whether the toolchain moved. `ENTRY` is the entry point or target the
+command runs, and `MACHINE` is what it ran on -- wall-clock numbers depend on it,
+and for counts it costs a few words. The **measured** date takes the place of
+the playground's checked date: a link is re-checked by clicking it, and a
+measurement re-run is a new measurement, with a line of its own.
+
+`REPO@COMMIT` names the repository and a commit **reachable from a ref nobody
+deletes** -- the default branch's history, or a tag. A spike branch that is not
+going to merge gets a tag before a research note cites it. So does a branch
+commit in a project that squash-merges, because an experiment that leaves when
+its research note merges may never reach the default branch at all.
+
+The line is **required on every number a research note establishes, and
+reviewers check for it**, as they check the playground's version stamp. A
+number the note quotes from somewhere else -- a paper, another project's
+records -- is that source's claim: cite the source, and say it was not
+reproduced.
 
 Research is evidence, not a test. An ADR arguing for different internals should
 not bring tests with it -- they would be written against the structure the
