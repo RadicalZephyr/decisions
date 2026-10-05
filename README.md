@@ -1,8 +1,9 @@
 # Decisions
 
 A template for recording the technical decisions a project makes, and the
-experiments that back them up -- language-agnostic, project-agnostic, and meant
-to be copied into a repository more or less as it stands.
+notes, research and experiments that lead up to them -- language-agnostic,
+project-agnostic, and meant to be copied into a repository more or less as it
+stands.
 
 It was extracted from
 [`sodium-rust`](https://github.com/RadicalZephyr/sodium-rust) at `2acb289`,
@@ -11,13 +12,21 @@ the conventions for a Rust library whose API is mandated from outside.
 Everything specific to that library, and to Rust, has been taken out; what is
 left is the shape of the decision and the argument for it.
 
+Notes and research came later, from [`rfd`](https://github.com/RadicalZephyr/rfd)
+at `079a267`, the design repository for the Bough FRP library, where an
+experiment had to exist, and be named, before the decision it informed. The
+measured provenance line comes from its FRP literature review, on
+`research/frp-literature-review` at `9633ade`.
+
 ## What is in it
 
 | Path | What it is | On adoption |
 | --- | --- | --- |
-| [`docs/decisions/README.md`](docs/decisions/README.md) | Owns the rules: naming, the status log, editing versus superseding, where evidence lives | copy; name the playground |
+| [`docs/decisions/README.md`](docs/decisions/README.md) | Owns the rules: naming, the status log, editing versus superseding, the path from note to record, where evidence lives | copy; name the playground |
 | [`docs/decisions/records/0001-recording-important-decisions.md`](docs/decisions/records/0001-recording-important-decisions.md) | The argument for the rules, written as the first record in its own format | copy; date it, add your context |
-| [`docs/decisions/experiments/README.md`](docs/decisions/experiments/README.md) | The sub-project for experiments a record cites, and the rule that retires them | copy; wire the sub-project into your build |
+| [`docs/decisions/notes/README.md`](docs/decisions/notes/README.md) | Where a thought lands before there is evidence for it, and how a note is kept | copy |
+| [`docs/decisions/research/README.md`](docs/decisions/research/README.md) | Documents that carry evidence, briefs, and what a research note owes its reader | copy |
+| [`docs/decisions/experiments/README.md`](docs/decisions/experiments/README.md) | The sub-project for experiments a research note or record cites, and the rule that retires them | copy; wire the sub-project into your build |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | The rules restated for a human contributor | merge into yours |
 | [`CLAUDE.md`](CLAUDE.md) | The rules restated for an agent, plus the rule that keeps restatements honest | merge into yours |
 
@@ -37,17 +46,27 @@ This file is the one thing here that is not part of the template.
 - **Edit while the decision is still the decision; supersede when someone
   following the old record would now do the wrong thing.** Diff size measures
   effort and gets this wrong in both directions.
-- **Evidence must be runnable.** Code producing a number a record argues from
-  is committed where a reader can run it, routed by whether a reader can run it
-  from a share link: a playground link with the source and a toolchain version
-  stamp when the service can run it, the experiments sub-project when it cannot
-  -- this project's code, or a dependency the service does not carry.
+- **Notes and research come before a record.** A note records where a thought
+  landed before there is evidence for it; a research note carries the evidence.
+  Running the experiment a note proposes opens a research note, and the
+  experiment starts under its name -- so an experiment exists before the
+  decision it informs. Promotion moves nothing, both can rest indefinitely, and
+  both are kept as written once they merge.
+- **Evidence must be runnable.** Code producing a number a record or research
+  note argues from is committed where a reader can run it, routed by whether a
+  reader can run it from a share link: a playground link with the source and a
+  toolchain version stamp when the service can run it, the experiments
+  sub-project when it cannot -- this project's code, or a dependency the service
+  does not carry. Only an experiment too big for the sub-project lives
+  elsewhere, pinned at a commit a reader can still reach, and every number a
+  research note establishes carries a measured provenance line.
 - **Research is evidence, not a test.** A record arguing for different
   internals does not bring tests written against the structure it exists to
   replace.
-- **Every experiment has a scheduled exit.** Deleted when the record replaced
-  the internals it measured, promoted to the benchmark or test suite when it
-  still answers a live question. The sub-project is a staging area, not an
+- **Every experiment has a scheduled exit.** It leaves when its record is done,
+  or when its research note merges if no record cites it -- deleted when the
+  internals it measured are gone, promoted to the benchmark or test suite when
+  it still answers a live question. The sub-project is a staging area, not an
   archive.
 
 ## Adopting it
@@ -79,8 +98,17 @@ each a status block that logs what actually happened to it. The template's
 record then takes the next free number instead of `0001`: nothing points at it
 yet, so it is the one renumbering that is right, and `grep -rn 0001-recording`
 finds the links to update. An imported record was written under a convention
-that never revised it, so open it with a dated note saying so -- its old date
-is its `Drafted` row, and its body is a snapshot until someone revisits it.
+that never revised it, so open it with a dated addition saying so -- its old
+date is its `Drafted` row, and its body is a snapshot until someone revisits it.
+
+For a project that adopted this template before notes and research were part of
+it, they arrive as an edit to its `0001`, not as a new record. Its `0001` has
+made its decision, so the new reasoning goes in as dated additions beside the
+sections it concerns -- by the record's own test that is an edit, since it
+widens the scope and deletes nothing anyone acted on. Experiments already named
+after records stay valid. Copy `notes/` and `research/`, and bring
+`docs/decisions/README.md`, `experiments/README.md`, `CONTRIBUTING.md` and
+`CLAUDE.md` up to date with this repository's.
 
 ## What was deliberately left out
 
@@ -103,11 +131,24 @@ rather than to the decision. Each is worth adding back when it applies:
   [`docs/decisions/`](https://github.com/RadicalZephyr/sodium-rust/tree/main/docs/decisions)
   is the fully worked Rust instance of this template.
 
+`rfd` layers two more that belong to it rather than to notes and research:
+
+- **A book that carries every note.** `rfd` renders its RFDs, notes and research
+  with mdbook, and includes each note into the book, so a link from an RFD to a
+  note is checked on every build. A project that renders its docs will want the
+  links into `notes/` and `research/` checked the same way; how depends on the
+  renderer.
+- **Decisions in a repository apart from the code.** `rfd`'s RFDs live in a
+  repository of their own and use their own states, so its experiments
+  sub-project is a separate repository too, every measured provenance line names
+  it, and an experiment retires when its RFD reaches `committed` or `abandoned`
+  rather than `Implemented` or `Deprecated`.
+
 ## Placeholders
 
 `{{like this}}` marks something the adopting project fills in once. Uppercase
 words inside a format line -- `TOOL VERSION (released DATE)` -- are filled in
-per record, not per project, and stay as they are.
+per record or research note, not per project, and stay as they are.
 
 **Here they stay unfilled, and `0001` stays `Drafted`.** This repository is
 where the convention is kept and refined, and it is never adopted here: no
