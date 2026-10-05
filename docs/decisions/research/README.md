@@ -57,8 +57,10 @@ A number a research note establishes has to be re-derivable: the note says what
 ran, with which toolchain, on what, and where the code is. Each such number
 carries a provenance line, and the command that produced it, in the section
 that quotes it; [`../README.md`](../README.md#a-measured-number-carries-its-provenance)
-has the format. A number the note did not establish -- a paper's, another
-project's -- cites its source and says it was not reproduced here.
+has the format. A number another research note established links that note's
+section rather than repeating its line. A number from outside this project's
+documents -- a paper's, another project's -- cites its source and says it was
+not reproduced here.
 
 The experiment's code lives in [`../experiments/`](../experiments/README.md)
 unless it needs more room than the sub-project has.

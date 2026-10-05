@@ -72,6 +72,14 @@ a new record when someone following the old one would now do the wrong thing.
 Mechanically -- if the change can be a dated addition it is an edit; if it means
 deleting a claim someone may have acted on, the old claim earns its own record.
 
+### Refer to what is already written
+
+**Link what another document under `docs/decisions/` already carries, and quote
+only what the argument in front of you needs** -- the number, or the question in
+one sentence. That covers a record and the rules it follows, a number and its
+provenance line, a report and its brief. A copy goes stale on its own schedule
+and is read with the same confidence as the original.
+
 ### Notes and research
 
 What comes before a record lives beside `records/`: **notes** in
@@ -166,17 +174,20 @@ review** -- a link that names a channel rather than a version drifts, and
 without the stamp a reader cannot tell whether the toolchain moved or the record
 was wrong. `docs/decisions/README.md` has the skeleton.
 
-**Every number a research note establishes by running something outside a
-playground carries a measured provenance line**, as a blockquote with the
-command that produced it in a code block beneath, in the section that quotes
-the number --
+**Every number established by running something outside a playground carries a
+measured provenance line in the document that establishes it** -- a research
+note, or a record that argues straight from an experiment -- as a blockquote with
+the command that produced it in a code block beneath, in the section that quotes
+the number:
 
 ```text
 > TOOL VERSION (released DATE) - measured DATE - ENTRY at REPO@COMMIT - MACHINE
 ```
 
-It is checked in review like the playground stamp. A number quoted from a paper
-or another project cites its source and says it was not reproduced.
+It is checked in review like the playground stamp. A document quoting a number
+another one established links the section carrying its line instead of copying
+it. A number quoted from a paper or another project cites its source and says it
+was not reproduced.
 
 An experiment a record cites -- by name, or through its research note -- is
 maintained while that decision is still being argued or built, and leaves the

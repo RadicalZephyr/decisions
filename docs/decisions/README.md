@@ -149,6 +149,25 @@ This is not a separate convention from the version stamps on quoted output
 below -- the playground's and the measured line's are this rule's strictest
 instances.
 
+## Refer to what is already written
+
+What one document here already carries, another refers to rather than repeats.
+A second copy goes stale on its own schedule and is read with the same
+confidence as the first, so a reader is better served by a link and as much as
+the argument in front of them needs -- the number being quoted, or the question
+in one sentence.
+
+It comes up in three places:
+
+- **A record and its rules.** A record argues; the rules it follows live in this
+  file, and it links them.
+- **A number and its provenance.** The document that establishes a number
+  carries its provenance line. One that quotes the number links the section
+  carrying the line and does not copy it.
+- **A report and its brief.** A report links its brief and gives the key
+  question in one sentence; [`research/README.md`](research/README.md#briefs)
+  has the shape.
+
 ## Before a record: notes and research
 
 A record is usually the end of something. Two kinds of dated document come
@@ -339,11 +358,11 @@ signal that a superseding record is due.
 
 ### A measured number carries its provenance
 
-A number a research note establishes by running something anywhere but a
-playground -- the sub-project, a spike branch, a repository of its own -- has no
-link to click. It is re-derived by checking out a commit and running a command,
-so those are what it carries: a provenance line as a blockquote, and the command
-beneath it, in the section that quotes the number.
+A number established by running something anywhere but a playground -- the
+sub-project, a spike branch, a repository of its own -- has no link to click. It
+is re-derived by checking out a commit and running a command, so those are what
+it carries: a provenance line as a blockquote, and the command beneath it, in
+the section that quotes the number.
 
 ````markdown
 > TOOL VERSION (released DATE) - measured DATE - ENTRY at REPO@COMMIT - MACHINE
@@ -367,11 +386,14 @@ going to merge gets a tag before a research note cites it. So does a branch
 commit in a project that squash-merges, because an experiment that leaves when
 its research note merges may never reach the default branch at all.
 
-The line is **required on every number a research note establishes, and
-reviewers check for it**, as they check the playground's version stamp. A
-number the note quotes from somewhere else -- a paper, another project's
-records -- is that source's claim: cite the source, and say it was not
-reproduced.
+The line goes with the document that establishes the number -- usually a
+research note, or a record that argues straight from an experiment -- and it is
+**required there, and reviewers check for it**, as they check the playground's
+version stamp. A document quoting a number another one established links the
+section carrying its line instead of repeating it; [Refer to what is already
+written](#refer-to-what-is-already-written) says why. A number from outside
+this project's documents -- a paper, another project's records -- is that
+source's claim: cite the source, and say it was not reproduced.
 
 Research is evidence, not a test. An ADR arguing for different internals should
 not bring tests with it -- they would be written against the structure the

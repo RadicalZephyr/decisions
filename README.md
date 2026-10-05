@@ -13,16 +13,15 @@ Everything specific to that library, and to Rust, has been taken out; what is
 left is the shape of the decision and the argument for it.
 
 Notes and research came later, from [`rfd`](https://github.com/RadicalZephyr/rfd)
-at `079a267`, the design repository for the Bough FRP library, where an
+at `4373ef8`, the design repository for the Bough FRP library, where an
 experiment had to exist, and be named, before the decision it informed. The
-measured provenance line comes from its FRP literature review, on
-`research/frp-literature-review` at `9633ade`.
+measured provenance line comes from its FRP literature review.
 
 ## What is in it
 
 | Path | What it is | On adoption |
 | --- | --- | --- |
-| [`docs/decisions/README.md`](docs/decisions/README.md) | Owns the rules: naming, the status log, editing versus superseding, the path from note to record, where evidence lives | copy; name the playground |
+| [`docs/decisions/README.md`](docs/decisions/README.md) | Owns the rules: naming, the status log, editing versus superseding, referring rather than repeating, the path from note to record, where evidence lives | copy; name the playground |
 | [`docs/decisions/records/0001-recording-important-decisions.md`](docs/decisions/records/0001-recording-important-decisions.md) | The argument for the rules, written as the first record in its own format | copy; date it, add your context |
 | [`docs/decisions/notes/README.md`](docs/decisions/notes/README.md) | Where a thought lands before there is evidence for it, and how a note is kept | copy |
 | [`docs/decisions/research/README.md`](docs/decisions/research/README.md) | Documents that carry evidence, briefs, and what a research note owes its reader | copy |
@@ -58,8 +57,9 @@ This file is the one thing here that is not part of the template.
   toolchain version stamp when the service can run it, the experiments
   sub-project when it cannot -- this project's code, or a dependency the service
   does not carry. Only an experiment too big for the sub-project lives
-  elsewhere, pinned at a commit a reader can still reach, and every number a
-  research note establishes carries a measured provenance line.
+  elsewhere, pinned at a commit a reader can still reach. A number run outside
+  a playground carries a measured provenance line where it is established, and
+  is linked, not copied, everywhere else.
 - **Research is evidence, not a test.** A record arguing for different
   internals does not bring tests written against the structure it exists to
   replace.

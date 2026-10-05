@@ -62,7 +62,9 @@ The rules themselves live in [`README.md`](../README.md) one level up, beside
 `records/`, and in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) for
 contributors. This record holds the argument, what we turned down, and what we
 are still unsure about. Keeping the two apart is deliberate: a record that
-restates its own rulebook goes stale the first time the rulebook changes.
+restates its own rulebook goes stale the first time the rulebook changes. The
+same holds between any two documents here -- what one carries, another refers
+to, quoting only what its own argument needs.
 
 ## Why living documents rather than immutable records
 
@@ -286,8 +288,11 @@ running a command. So it carries a provenance line -- the toolchain version, the
 date it was measured, the entry point and commit, the machine -- with the
 command beneath. It guards against the playground stamp's failure in a
 different place: a reader who re-runs the command and gets a different number
-cannot otherwise tell whether the toolchain moved, the machine did, or the note
-was always wrong.
+cannot otherwise tell whether the toolchain moved, the machine did, or the
+document was always wrong. The line goes with whichever document establishes
+the number, a research note or a record, and a document that quotes the number
+links there instead: a copied provenance line is a second place for it to be
+wrong, and the copy is the one nobody re-checks.
 
 ## Tests are not evidence
 

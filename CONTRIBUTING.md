@@ -43,6 +43,14 @@ never honoured is a row that never arrived.
 Only state transitions belong in the log. A change to what a record *says* is a
 dated addition in the body, beside the reasoning it concerns.
 
+## Refer to what is already written
+
+What one document under `docs/decisions/` already carries, another links rather
+than repeats -- a rule, a number's provenance line, a brief's question. Quote
+only what the argument in front of you needs: the number, or the question in one
+sentence. A copy goes stale on its own schedule, and it is read with the same
+confidence as the original.
+
 ## Notes and research
 
 A record is usually the end of something. What comes before it goes in two
@@ -141,12 +149,15 @@ confirmed the link still produces it.
 [`docs/decisions/README.md`](docs/decisions/README.md#playground-experiments-carry-four-things-not-one)
 has the skeleton.
 
-A number a research note establishes by running something outside a playground
-has no link to click, so it carries a provenance line too: a blockquote reading
+A number established by running something outside a playground has no link to
+click, so it carries a provenance line too: a blockquote reading
 `TOOL VERSION (released DATE) - measured DATE - ENTRY at REPO@COMMIT - MACHINE`,
 with the command that produced it in a code block beneath, in the section that
-quotes the number. A number the note quotes from somewhere else -- a paper,
-another project -- cites its source and says it was not reproduced.
+quotes the number. The line goes in the document that establishes the number --
+a research note, or a record that argues straight from an experiment -- and a
+document quoting that number links the section carrying the line instead of
+copying it. A number from outside this project's documents -- a paper, another
+project -- cites its source and says it was not reproduced.
 [`docs/decisions/README.md`](docs/decisions/README.md#a-measured-number-carries-its-provenance)
 says what each part is for.
 
@@ -159,7 +170,9 @@ should be approved on autopilot.
 
 **Reviewing a research note includes checking the same stamps** -- a version
 stamp on any playground output it quotes, and a measured provenance line on every
-number it establishes, at a commit a reader can still reach.
+number it establishes, at a commit a reader can still reach. A record that
+establishes a number itself is checked for the same line; one that quotes a
+research note's number needs the link, not a copy.
 
 ## Tests and research are not the same thing
 

@@ -98,9 +98,10 @@ Either way it goes through one of two exits:
 - **Deleted** -- it measured internals the record replaced, or answered a
   question that is now closed. An entry point that no longer builds against the
   new code is deleted rather than repaired; the commit that produced its numbers
-  is cited -- in its research note's provenance lines, or in the record -- and
-  history keeps it. Most records here argue for changing the internals an
-  experiment was measuring, so breaking is how it ends rather than a regression.
+  is in the provenance lines of the research note or record that established
+  them, and history keeps it. Most records here argue for changing the internals
+  an experiment was measuring, so breaking is how it ends rather than a
+  regression.
 - **Promoted** -- it still answers a live question, which means it stopped
   being research. A measurement worth re-running is a benchmark and moves to
   the benchmark suite; something asserting a property we promise is a test and
